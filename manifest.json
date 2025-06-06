@@ -1,0 +1,15 @@
+{
+  "name": "tAi Advisor",
+  "description": "A Chrome extension that provides AI-driven advice",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "hello.html"
+  },
+  "content_scripts": [
+    {
+    "matches": ["<all_urls>"],
+      "js": ["scripts/content.js"]
+    }
+  ]
+}
