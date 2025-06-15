@@ -6,7 +6,8 @@
   "action": {
     "default_popup": "hello.html"
   },
-  "permissions": ["contextMenus", "activeTab", "scripting" , "tabs"],
+  "permissions": ["contextMenus", "activeTab", "scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
