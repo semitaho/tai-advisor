@@ -5,6 +5,9 @@ const tabCloseLimitInMinutes = 2;
 
 const intervalToCheckTabs = 500; // 5 seconds
 
+
+/*
+
 let interval = setInterval(async function () {
   const hiddenTabs = await queryHiddenTabs();
   hiddenTabs.forEach((tab) => {
@@ -15,11 +18,9 @@ let interval = setInterval(async function () {
       return;
     }
     const openTime = tabOpenTimes[tabId];
-
+    getElapsedTimeInSeconds(tabId);
     if (openTime) {
       const elapsedTime = Date.now() - openTime;
-  
-
       if (elapsedTime > tabCloseLimitInMinutes * 60 * 1000) {
         console.log("Closing tab:", tabId);
         tabOpenTimes[tabId] = null; // Reset the open time for the tab
@@ -40,13 +41,7 @@ let interval = setInterval(async function () {
           func: () => {
             const originalTitle = document.title;
             const newTitle = 'Closing..';
-            setInterval(() => {
-             if (document.title === originalTitle) {
-                document.title = newTitle;
-              } else {
-                document.title = originalTitle;
-              }
-            },intervalToCheckTabs);
+            swapBetweenTitles(originalTitle, newTitle);
             document.title = "RESET";
           },
         });
@@ -54,6 +49,29 @@ let interval = setInterval(async function () {
     }
   });
 }, 10000); // Check every 5 seconds
+
+*/
+
+function getElapsedTimeInSeconds(tabId) {
+  const openTime = tabOpenTimes[tabId];
+  if (openTime) {
+    const elapsedTime = Date.now() - openTime;
+    const elapsedSeconds = Math.floor(elapsedTime / 1000);
+    console.log(`Tab ${tabId} has been open for ${elapsedSeconds} seconds.`);
+    return elapsedSeconds;
+  }
+  return -1; // Return -1 if the tab is not being tracked
+  console.log(`Tab ${tabId} is not being tracked.`);
+}
+function swapBetweenTitles(originalTitle, newTitle) {
+  setInterval(() => {
+    if (document.title === originalTitle) {
+      document.title = newTitle;
+    } else {
+      document.title = originalTitle;
+    }
+  }, intervalToCheckTabs);
+}
 
 async function queryHiddenTabs() {
   const tabs = await chrome.tabs.query({ active: false, currentWindow: true });
@@ -70,7 +88,10 @@ chrome.tabs.onCreated.addListener((activeInfo) => {
 
 chrome.tabs.onHighlighted.addListener((highlightInfo) => {
   console.log("Tabs highlighted:", highlightInfo.tabIds);
-  highlightInfo.tabIds.forEach((tabId) => resetTimer(tabId));
+  highlightInfo.tabIds.forEach((tabId) => {
+
+    
+  });
 });
 
 chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
