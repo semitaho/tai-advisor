@@ -1,11 +1,28 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings</title>
-    </head>
-<body>  
+    <link rel="stylesheet" href="styles/pico.min.css" />
+  </head>
+  <body class="container page-forms">
     <h1>Settings</h1>
-    </body> 
+    <p>Configure your preferences here.</p>
+    <form class="max-w-sm mx-auto">
+      <fieldset>
+        <label class="block" for="ads"
+          >ads classes
+          <input
+            class="border border-gray-300 p-2 w-full"
+            type="text"
+            id="ads"
+            name="ads"
+            placeholder="Ad classes separated by comma"
+          />
+        </label>
+      </fieldset>
+    </form>
+    <script src="scripts/settings.js"></script>
+  </body>
 </html>
